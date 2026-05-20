@@ -20,6 +20,9 @@ jobs:
       - name: Install candidate dependencies
         run: cd candidate && npm ci
 
+      - name: Validate manifest
+        run: python3 -m json.tool translucid-template.json >/dev/null
+
       - name: Validate solution
         run: make validate-solution
 
@@ -28,6 +31,9 @@ jobs:
 
       - name: Render template
         run: make render
+
+      - name: Check render contract
+        run: make check-render
 
       - name: Safety scan
         run: make scan-safety

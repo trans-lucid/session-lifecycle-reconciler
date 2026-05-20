@@ -1,4 +1,4 @@
-.PHONY: install validate-solution validate-candidate-main-expected-failure validate-docker-integration validate-rendered-smoke render scan-safety validate clean
+.PHONY: check-render install validate-solution validate-candidate-main-expected-failure validate-docker-integration validate-rendered-smoke render scan-safety validate clean
 
 install:
 	cd candidate && npm ci
@@ -21,7 +21,10 @@ render:
 scan-safety:
 	python3 tools/scan_safety.py
 
-validate: validate-solution validate-candidate-main-expected-failure render scan-safety validate-rendered-smoke validate-docker-integration
+check-render:
+	python3 tools/check_render_contract.py
+
+validate: validate-solution validate-candidate-main-expected-failure render check-render scan-safety validate-rendered-smoke validate-docker-integration
 
 clean:
 	rm -rf generated
