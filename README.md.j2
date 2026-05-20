@@ -1,0 +1,55 @@
+# Session Lifecycle Reconciler
+
+You are inheriting a SaaS auth/session backend where runtime sessions, database sessions, organization memberships, and route access state can drift.
+
+The current implementation trusts the runtime cache too much, creates duplicate active sessions under repeated login callbacks, allows stale organization access after membership changes, and sweeps expired sessions without enough audit context.
+
+## What You Are Building
+
+Repair the lifecycle path so the system can:
+
+- Treat login callbacks idempotently.
+- Keep Redis runtime sessions consistent with Postgres session truth.
+- Deny protected routes when DB sessions are revoked.
+- Re-check org membership at request time.
+- Sweep expired sessions with support/security audit reasons.
+- Write an operator-readable audit report.
+
+## Local Simulator
+
+The repo uses local services:
+
+- Keycloak-compatible local OIDC simulator.
+- Postgres for app sessions, memberships, and audit logs.
+- Redis for runtime session cache.
+
+No real auth provider, cloud credentials, or customer data are needed.
+
+## Time Budget
+
+- Setup: about 5-10 minutes after Docker images are available.
+- Coding: about 70-95 minutes for the standard challenge.
+- Staff variant: up to 120 minutes with stricter race, high-risk audit, and drift cases.
+
+## Main Files
+
+You will likely edit:
+
+- `src/reconciler.ts`
+- `src/middleware.ts`
+- `src/sweeper.ts`
+- `src/sessionStore.ts`
+- `src/auditLog.ts`
+
+## Commands
+
+```bash
+make dev
+make seed
+make test
+make test-integration
+make run
+make clean
+```
+
+Private tests use harder membership drift, race, stale runtime, high-risk role, and request-context cases. Do not hardcode fixture IDs or bypass Postgres, Redis, or the token simulator.

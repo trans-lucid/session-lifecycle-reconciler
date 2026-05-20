@@ -1,0 +1,8 @@
+{
+  "redis_only": "session exists in Redis but not Postgres",
+  "revoked_db": "Postgres says revoked while Redis says active",
+  "membership_removed": "organization membership changed after session creation",
+  "duplicate_callbacks": "same login callback replays multiple times",
+  "high_risk_expiry": "high-risk role expiry requires audit reason"
+}
+

@@ -1,0 +1,22 @@
+public:
+  seed: 20260520
+  tenants:
+    - org_alpha
+    - org_beta
+  users:
+    - user_alpha
+    - user_admin
+  expected_failures:
+    - runtime_overrides_revocation
+    - duplicate_active_session
+    - stale_org_access_allowed
+    - missing_audit_reason
+hidden:
+  seed: 20260521
+  traps:
+    - redis_session_without_postgres_row
+    - postgres_revoked_redis_active
+    - membership_removed_after_login
+    - duplicate_login_callback_replay
+    - high_risk_expiry_without_reason
+    - stale_org_context_leak

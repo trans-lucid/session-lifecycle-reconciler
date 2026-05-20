@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sessions
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  keycloak:
+    image: node:22-alpine
+    working_dir: /app
+    command: ["node", "simulators/keycloakSimulator.mjs"]
+    volumes:
+      - ../candidate:/app
+    ports:
+      - "8085:8085"
+

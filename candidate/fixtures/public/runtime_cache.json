@@ -1,0 +1,5 @@
+{
+  "sessions": [
+    {"session_id": "sess-public-1", "user_id": "user_alpha", "org_id": "org_alpha", "status": "active"}
+  ]
+}

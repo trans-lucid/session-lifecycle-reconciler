@@ -1,0 +1,47 @@
+name: Template Validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install candidate dependencies
+        run: cd candidate && npm ci
+
+      - name: Validate solution
+        run: make validate-solution
+
+      - name: Validate expected starter failure
+        run: make validate-candidate-main-expected-failure
+
+      - name: Render template
+        run: make render
+
+      - name: Safety scan
+        run: make scan-safety
+
+      - name: Rendered repo smoke
+        run: make validate-rendered-smoke
+
+      - name: Docker-backed integration expected failure
+        run: make validate-docker-integration
+
+      - name: Dump Docker logs on failure
+        if: failure()
+        run: |
+          cd candidate
+          docker compose logs || true
+          docker compose down -v || true
+

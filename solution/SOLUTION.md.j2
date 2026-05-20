@@ -1,0 +1,13 @@
+# Solution Notes
+
+The reference implementation treats Postgres as durable session truth and Redis as a runtime cache only.
+
+Key fixes:
+
+- Repeated login callbacks are keyed by `login_event_id` and return the existing app session.
+- Route authorization re-checks current organization membership on every request.
+- A revoked Postgres session denies access even when Redis still contains an active runtime session.
+- Expired high-risk sessions write operator-readable audit reasons and details.
+- Hidden evaluator tests target Redis-only sessions, stale organization context, duplicate callback replay, and audit completeness.
+
+The intended production-path fix touches `reconciler.ts`, `middleware.ts`, and `sweeper.ts`; shallow patches that only update fixture helpers should fail the Docker-backed integration gate.

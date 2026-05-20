@@ -1,0 +1,8 @@
+node_modules/
+generated/
+candidate/node_modules/
+candidate/results/*
+!candidate/results/.gitkeep
+coverage/
+.DS_Store
+

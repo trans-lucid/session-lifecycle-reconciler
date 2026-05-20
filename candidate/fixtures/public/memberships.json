@@ -1,0 +1,7 @@
+{
+  "memberships": [
+    {"user_id": "user_alpha", "org_id": "org_alpha", "role": "member", "status": "active"},
+    {"user_id": "user_admin", "org_id": "org_alpha", "role": "admin", "status": "active"},
+    {"user_id": "user_removed", "org_id": "org_alpha", "role": "member", "status": "removed"}
+  ]
+}

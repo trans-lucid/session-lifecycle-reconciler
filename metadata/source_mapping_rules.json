@@ -1,0 +1,52 @@
+{
+  "template_id": "session-lifecycle-reconciler",
+  "positive_signals": [
+    "auth",
+    "session",
+    "nextauth",
+    "auth.js",
+    "clerk",
+    "keycloak",
+    "supabase auth",
+    "oidc",
+    "jwt",
+    "redis session",
+    "session cache",
+    "organization membership",
+    "org_memberships",
+    "rbac",
+    "middleware",
+    "route guard",
+    "audit log"
+  ],
+  "negative_signals": [
+    "pure frontend only",
+    "no auth path",
+    "stateless public site"
+  ],
+  "stack_matches": [
+    "typescript",
+    "node",
+    "next.js",
+    "postgres",
+    "redis",
+    "auth.js",
+    "keycloak",
+    "supabase"
+  ],
+  "best_roles": [
+    "Backend Engineer",
+    "Full-stack Engineer",
+    "Security Engineer",
+    "Staff Backend"
+  ],
+  "personalization_knobs": [
+    "identity provider naming",
+    "organization and workspace nouns",
+    "membership roles",
+    "session risk levels",
+    "audit event schema",
+    "route access policy",
+    "runtime cache behavior"
+  ]
+}

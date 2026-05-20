@@ -1,0 +1,72 @@
+id: session-lifecycle-reconciler
+title: Session Lifecycle Reconciler
+area: saas-auth
+language: typescript
+roles:
+  - Backend Engineer
+  - Full-stack Engineer
+  - Security Engineer
+  - Staff Backend
+seniority:
+  - senior
+  - staff
+time_minutes:
+  medium: 70
+  hard: 95
+  staff: 120
+local_environment:
+  required:
+    - docker
+    - docker-compose
+  public_services:
+    - name: keycloak-compatible-oidc-simulator
+      purpose: local login and token introspection path
+    - name: postgres
+      purpose: durable app sessions, memberships, and audit log
+    - name: redis
+      purpose: runtime session cache
+  hidden_services:
+    - name: docker-compose.evaluator
+      purpose: stricter session drift and identity fixtures
+  no_external_credentials: true
+  no_cloud_calls: true
+evaluation_axes:
+  - session lifecycle state machine
+  - DB/runtime divergence repair
+  - organization membership enforcement
+  - duplicate-login idempotency
+  - expired-session sweeping
+  - support/security auditability
+source_signals:
+  - auth
+  - session
+  - nextauth
+  - auth.js
+  - keycloak
+  - supabase auth
+  - clerk
+  - oidc
+  - redis session
+  - organization membership
+  - rbac
+candidate_expected_failure:
+  - runtime_overrides_revocation
+  - duplicate_active_session
+  - stale_org_access_allowed
+  - missing_audit_reason
+hidden_test_strategy:
+  - redis session without postgres row is denied
+  - postgres revocation beats redis active state
+  - membership removal after login is enforced
+  - duplicate callbacks are idempotent under race-like replay
+  - high-risk expiry requires audit reason
+  - request context does not leak stale org state
+forbidden:
+  - one-file-helper
+  - in-memory-only-production-path
+  - hardcoded-fixtures
+  - bypass-postgres
+  - bypass-redis
+  - bypass-oidc-simulator
+  - login-only-membership-check
+
