@@ -9,4 +9,4 @@
 | 5 | agent-trace-evaluator | golden | agent trajectory evals | fake trace API, Jaeger | passed in prior repo | passed in prior repo | AI evals flagship |
 | 6 | payment-recovery-state-machine | golden | outbound payment recovery | Postgres, WireMock, LocalStack SQS | passed in prior repo | passed in prior repo | Distinct from inbound webhook ledger |
 | 7 | workflow-recovery-reconciler | golden | durable workflow recovery | Postgres, WireMock, LocalStack SQS | passed in prior repo | passed in prior repo | Platform recovery template |
-| 8 | session-lifecycle-reconciler | in progress | SaaS auth/session drift | Keycloak-like simulator, Postgres, Redis | pending | pending | Current template |
+| 8 | session-lifecycle-reconciler | golden | SaaS auth/session drift | Keycloak-like simulator, Postgres, Redis | passed | passed | Fresh-clone proof passed |
